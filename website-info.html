@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Pi Hub Website - Order Food Online</title>
+    <meta name="description" content="Order food online from your favorite restaurants through Food Pi Hub's website">
+    <meta name="theme-color" content="#7C3AED">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Food Pi Hub">
+    
+    <!-- PWA Icons -->
+    <link rel="apple-touch-icon" href="images/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/tailwind.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <img src="images/logo.png" alt="Food Pi Hub Logo" class="h-8 w-auto">
+                        <span class="text-xl font-bold ml-2">Food Pi Hub</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center ml-8 space-x-6">
+                    <a href="index.html" class="text-gray-600 hover:text-purple-600">Home</a>
+                    <a href="app-download.html" class="text-gray-600 hover:text-purple-600">Get App</a>
+                    <a href="website-info.html" class="text-purple-600">Website</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="pt-24 pb-12 bg-gradient-to-r from-purple-600 to-purple-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:flex lg:items-center lg:justify-between">
+                <div class="lg:w-1/2">
+                    <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
+                        Order Food Online
+                    </h1>
+                    <p class="mt-3 max-w-md mx-auto text-lg text-purple-100 sm:text-xl md:mt-5 md:max-w-3xl">
+                        Discover local restaurants and order your favorite meals directly from our website.
+                    </p>
+                    <div class="mt-10">
+                        <a href="index.html#order-now" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-purple-700 bg-white hover:bg-purple-50">
+                            <i class="fas fa-utensils text-xl mr-2"></i>
+                            Start Ordering Now
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-10 lg:mt-0 lg:w-1/2">
+                    <img class="mx-auto w-full max-w-md" src="images/website-preview.png" alt="Food Pi Hub Website Preview">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    Why Order on Our Website?
+                </h2>
+                <p class="mt-4 text-xl text-gray-600">
+                    Enjoy a seamless food ordering experience with our feature-rich website
+                </p>
+            </div>
+
+            <div class="mt-16">
+                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="pt-6">
+                        <div class="flow-root bg-white rounded-lg px-6 pb-8">
+                            <div class="-mt-6">
+                                <div class="inline-flex items-center justify-center p-3 bg-purple-600 rounded-md shadow-lg">
+                                    <i class="fas fa-desktop text-white text-2xl"></i>
+                                </div>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Easy to Use Interface</h3>
+                                <p class="mt-5 text-base text-gray-500">
+                                    Our website is designed for simplicity and ease of use on any device.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6">
+                        <div class="flow-root bg-white rounded-lg px-6 pb-8">
+                            <div class="-mt-6">
+                                <div class="inline-flex items-center justify-center p-3 bg-purple-600 rounded-md shadow-lg">
+                                    <i class="fas fa-percent text-white text-2xl"></i>
+                                </div>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Special Web Offers</h3>
+                                <p class="mt-5 text-base text-gray-500">
+                                    Get exclusive web-only deals and discounts on your favorite restaurants.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6">
+                        <div class="flow-root bg-white rounded-lg px-6 pb-8">
+                            <div class="-mt-6">
+                                <div class="inline-flex items-center justify-center p-3 bg-purple-600 rounded-md shadow-lg">
+                                    <i class="fas fa-history text-white text-2xl"></i>
+                                </div>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Order History</h3>
+                                <p class="mt-5 text-base text-gray-500">
+                                    Easily track your past orders and reorder your favorite meals.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    How It Works
+                </h2>
+                <p class="mt-4 text-xl text-gray-600">
+                    Order your favorite food in just a few simple steps
+                </p>
+            </div>
+
+            <div class="mt-16">
+                <div class="grid grid-cols-1 gap-8 md:grid-cols-4">
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-600 text-white mx-auto">
+                            1
+                        </div>
+                        <h3 class="mt-4 text-lg font-medium text-gray-900">Browse Restaurants</h3>
+                        <p class="mt-2 text-base text-gray-500">
+                            Explore restaurants near you
+                        </p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-600 text-white mx-auto">
+                            2
+                        </div>
+                        <h3 class="mt-4 text-lg font-medium text-gray-900">Choose Your Food</h3>
+                        <p class="mt-2 text-base text-gray-500">
+                            Select items from the menu
+                        </p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-600 text-white mx-auto">
+                            3
+                        </div>
+                        <h3 class="mt-4 text-lg font-medium text-gray-900">Place Order</h3>
+                        <p class="mt-2 text-base text-gray-500">
+                            Confirm your delivery details
+                        </p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-600 text-white mx-auto">
+                            4
+                        </div>
+                        <h3 class="mt-4 text-lg font-medium text-gray-900">Enjoy Your Meal</h3>
+                        <p class="mt-2 text-base text-gray-500">
+                            Get your food delivered
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-gray-600 hover:text-purple-600">About Us</a></li>
+                        <li><a href="contact.html" class="text-gray-600 hover:text-purple-600">Contact</a></li>
+                        <li><a href="faq.html" class="text-gray-600 hover:text-purple-600">FAQ</a></li>
+                        <li><a href="blog.html" class="text-gray-600 hover:text-purple-600">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="restaurant.html?category=pizza" class="text-gray-600 hover:text-purple-600">Pizza</a></li>
+                        <li><a href="restaurant.html?category=burger" class="text-gray-600 hover:text-purple-600">Burgers</a></li>
+                        <li><a href="restaurant.html?category=sushi" class="text-gray-600 hover:text-purple-600">Sushi</a></li>
+                        <li><a href="restaurant.html?category=vegetarian" class="text-gray-600 hover:text-purple-600">Vegetarian</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">For Restaurants</h3>
+                    <ul class="space-y-2">
+                        <li><a href="partner.html" class="text-gray-600 hover:text-purple-600">Become a Partner</a></li>
+                        <li><a href="restaurant-app.html" class="text-gray-600 hover:text-purple-600">Restaurant App</a></li>
+                        <li><a href="restaurant-login.html" class="text-gray-600 hover:text-purple-600">Restaurant Login</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="privacy-policy.html" class="text-gray-600 hover:text-purple-600">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="text-gray-600 hover:text-purple-600">Terms of Service</a></li>
+                        <li><a href="cookies.html" class="text-gray-600 hover:text-purple-600">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t text-center text-gray-600">
+                <p>&copy; 2024 Food Pi Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
