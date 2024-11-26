@@ -1,74 +1,81 @@
-// Restaurant page functionality
-let restaurant = null;
-let menuItems = [];
+// Mock data for static hosting
+const mockRestaurants = {
+    '1': {
+        id: '1',
+        name: 'Pizza Paradise',
+        coverImage: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5',
+        rating: 4.8,
+        reviewCount: 2500,
+        cuisineType: 'Italian',
+        deliveryTime: '30-45',
+        menu: [
+            {
+                id: '1',
+                name: 'Margherita Pizza',
+                description: 'Fresh tomatoes, mozzarella, basil',
+                price: 15.99,
+                image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591',
+                category: 'Pizza'
+            },
+            {
+                id: '2',
+                name: 'Pepperoni Pizza',
+                description: 'Classic pepperoni with mozzarella',
+                price: 16.99,
+                image: 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee',
+                category: 'Pizza'
+            }
+        ]
+    }
+};
 
 // Initialize Pi SDK
 const Pi = window.Pi;
-const piConfig = {
-    version: "2.0",
-    sandbox: true,
-    apiKey: "YOUR_PI_API_KEY", // Replace with your actual Pi API key
-};
+Pi.init({ version: "2.0", sandbox: true });
 
+// Cart state
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let currentUser = null;
-let authenticatedPiUser = null;
 
-// Initialize Pi SDK and authenticate user
-async function initPiNetwork() {
+// Initialize page
+document.addEventListener('DOMContentLoaded', async () => {
     try {
-        Pi.init(piConfig);
+        // Initialize Pi Network
         currentUser = await Pi.authenticate(['payments'], onIncompletePaymentFound);
-        authenticatedPiUser = currentUser;
         updateWalletUI();
+        
+        // Load restaurant data
+        await loadRestaurantData();
+        
+        // Setup event listeners
+        setupEventListeners();
+        
+        // Update cart UI
+        updateCartUI();
     } catch (error) {
-        console.error('Error initializing Pi Network:', error);
+        console.error('Initialization error:', error);
+        showError('Failed to initialize the application');
     }
-}
+});
 
-// Handle incomplete payments
-async function onIncompletePaymentFound(payment) {
-    try {
-        await handleIncompletePayment(payment);
-    } catch (err) {
-        console.error('Error handling incomplete payment:', err);
-    }
-}
-
-// Update wallet UI
-function updateWalletUI() {
-    const walletButton = document.querySelector('.wallet-button');
-    if (authenticatedPiUser) {
-        walletButton.textContent = `Connected: ${authenticatedPiUser.username}`;
-        walletButton.classList.add('connected');
-    } else {
-        walletButton.textContent = 'Connect Wallet';
-        walletButton.classList.remove('connected');
-    }
-}
-
-// Load restaurant data with error handling and loading states
+// Load restaurant data
 async function loadRestaurantData() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const restaurantId = urlParams.get('id');
-    
-    if (!restaurantId) {
-        showError('Restaurant ID is required');
-        return;
-    }
-
     showLoading(true);
     try {
-        const response = await fetch(`/api/restaurants/${restaurantId}`);
-        if (!response.ok) {
-            throw new Error('Failed to load restaurant data');
+        const urlParams = new URLSearchParams(window.location.search);
+        const restaurantId = urlParams.get('id') || '1';
+        
+        // In static version, use mock data
+        const restaurant = mockRestaurants[restaurantId];
+        if (!restaurant) {
+            throw new Error('Restaurant not found');
         }
         
-        restaurant = await response.json();
         updateRestaurantUI(restaurant);
-        await loadMenuItems(restaurantId);
+        renderMenuItems(restaurant.menu);
     } catch (error) {
         console.error('Error loading restaurant:', error);
-        showError('Failed to load restaurant data. Please try again.');
+        showError('Failed to load restaurant data');
     } finally {
         showLoading(false);
     }
@@ -77,19 +84,55 @@ async function loadRestaurantData() {
 // Update restaurant UI
 function updateRestaurantUI(restaurant) {
     document.getElementById('restaurant-name').textContent = restaurant.name;
-    document.getElementById('restaurant-cover').src = restaurant.coverImage;
     document.getElementById('restaurant-rating').textContent = '★'.repeat(Math.floor(restaurant.rating));
     document.getElementById('review-count').textContent = `(${restaurant.reviewCount} reviews)`;
-    document.getElementById('cuisine-type').textContent = restaurant.cuisineType;
     document.getElementById('delivery-time').textContent = `${restaurant.deliveryTime} min`;
     
-    // Update restaurant metadata
-    updateRestaurantMetadata(restaurant);
+    const coverImage = document.getElementById('restaurant-cover');
+    if (coverImage) {
+        coverImage.src = restaurant.coverImage;
+        coverImage.alt = restaurant.name;
+    }
 }
 
-// Enhanced cart functionality with Pi Network integration
-async function addToCart(item) {
-    if (!authenticatedPiUser) {
+// Render menu items
+function renderMenuItems(menu) {
+    const container = document.getElementById('menu-items');
+    if (!container) return;
+
+    const menuHTML = menu.map(item => `
+        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+            <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-bold text-lg">${item.name}</h3>
+                        <p class="text-gray-500 text-sm">${item.description}</p>
+                    </div>
+                    <span class="font-bold">π${item.price.toFixed(2)}</span>
+                </div>
+                <div class="mt-4 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <i class="fas fa-star text-yellow-400 mr-1"></i>
+                        <span class="text-sm">4.9 (120+)</span>
+                    </div>
+                    <button 
+                        onclick="addToCart(${JSON.stringify(item).replace(/"/g, '&quot;')})"
+                        class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700"
+                    >
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    container.innerHTML = menuHTML;
+}
+
+// Cart functions
+function addToCart(item) {
+    if (!currentUser) {
         showError('Please connect your Pi Wallet to add items to cart');
         return;
     }
@@ -97,7 +140,7 @@ async function addToCart(item) {
     cart.push({
         ...item,
         timestamp: new Date().toISOString(),
-        userId: authenticatedPiUser.uid
+        userId: currentUser.uid
     });
     
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -105,186 +148,23 @@ async function addToCart(item) {
     showSuccess('Item added to cart');
 }
 
-// Process payment with Pi Network
-async function processPayment(total) {
-    if (!authenticatedPiUser) {
-        showError('Please connect your Pi Wallet to proceed');
-        return;
-    }
-
-    try {
-        const payment = await Pi.createPayment({
-            amount: total,
-            memo: `Food order from ${restaurant.name}`,
-            metadata: { orderId: generateOrderId() }
-        });
-
-        if (payment.status === 'completed') {
-            await submitOrder(payment);
-            clearCart();
-            showSuccess('Order placed successfully!');
-        } else {
-            showError('Payment failed. Please try again.');
-        }
-    } catch (error) {
-        console.error('Payment error:', error);
-        showError('Payment processing failed. Please try again.');
-    }
-}
-
-// Submit order to backend
-async function submitOrder(payment) {
-    try {
-        const response = await fetch(`/api/orders`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                items: cart,
-                payment: payment,
-                userId: authenticatedPiUser.uid,
-                restaurantId: restaurant.id
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to submit order');
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error('Order submission error:', error);
-        throw error;
-    }
-}
-
-// UI helper functions
-function showLoading(show) {
-    const spinner = document.querySelector('.loading-spinner');
-    if (show) {
-        spinner.classList.remove('hidden');
-    } else {
-        spinner.classList.add('hidden');
-    }
-}
-
-function showError(message) {
-    const toast = document.createElement('div');
-    toast.className = 'fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg';
-    toast.textContent = message;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
-}
-
-function showSuccess(message) {
-    const toast = document.createElement('div');
-    toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg';
-    toast.textContent = message;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
-}
-
-// Utility functions
-function generateOrderId() {
-    return 'order_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-}
-
-// Load menu items
-async function loadMenuItems(restaurantId) {
-    try {
-        const response = await fetch(`/api/restaurants/${restaurantId}/menu`);
-        menuItems = await response.json();
-        
-        // Group items by category
-        const categories = groupByCategory(menuItems);
-        renderMenuCategories(categories);
-    } catch (error) {
-        console.error('Error loading menu items:', error);
-    }
-}
-
-// Group menu items by category
-function groupByCategory(items) {
-    return items.reduce((acc, item) => {
-        if (!acc[item.category]) {
-            acc[item.category] = [];
-        }
-        acc[item.category].push(item);
-        return acc;
-    }, {});
-}
-
-// Render menu categories
-function renderMenuCategories(categories) {
-    const container = document.getElementById('menu-categories');
-    container.innerHTML = '';
-
-    Object.entries(categories).forEach(([category, items]) => {
-        const categoryElement = document.createElement('div');
-        categoryElement.innerHTML = `
-            <h2 class="text-xl font-bold mb-4">${category}</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                ${items.map(item => `
-                    <div class="flex items-center space-x-4 p-4 border rounded-lg">
-                        <img src="${item.image}" alt="${item.name}" class="w-24 h-24 object-cover rounded-lg">
-                        <div class="flex-1">
-                            <h3 class="font-bold">${item.name}</h3>
-                            <p class="text-gray-600 text-sm">${item.description}</p>
-                            <div class="flex items-center justify-between mt-2">
-                                <span class="font-bold">π${item.price.toFixed(2)}</span>
-                                <button 
-                                    onclick="addToCart(${JSON.stringify(item).replace(/"/g, '&quot;')})"
-                                    class="px-4 py-1 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
-                                >
-                                    Add to Cart
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
-        `;
-        container.appendChild(categoryElement);
-    });
-}
-
-// Cart functionality
-const cartIcon = document.getElementById('cart-icon');
-const cartDropdown = document.getElementById('cart-dropdown');
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-// Toggle cart dropdown
-cartIcon.addEventListener('click', () => {
-    cartDropdown.classList.toggle('hidden');
-});
-
-// Close cart when clicking outside
-document.addEventListener('click', (e) => {
-    if (!cartIcon.contains(e.target)) {
-        cartDropdown.classList.add('hidden');
-    }
-});
-
-// Remove item from cart
 function removeFromCart(index) {
     cart.splice(index, 1);
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartUI();
 }
 
-// Update cart UI
 function updateCartUI() {
     const cartItems = document.getElementById('cart-items');
     const cartCount = document.getElementById('cart-count');
     const cartTotal = document.getElementById('cart-total');
 
-    // Update cart count
+    if (!cartItems || !cartCount || !cartTotal) return;
+
     cartCount.textContent = cart.length;
 
-    // Update cart items
     cartItems.innerHTML = cart.map((item, index) => `
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between p-2 border-b">
             <div>
                 <h4 class="font-medium">${item.name}</h4>
                 <p class="text-sm text-gray-600">π${item.price.toFixed(2)}</p>
@@ -293,29 +173,94 @@ function updateCartUI() {
                 onclick="removeFromCart(${index})"
                 class="text-red-600 hover:text-red-800"
             >
-                Remove
+                <i class="fas fa-trash"></i>
             </button>
         </div>
     `).join('');
 
-    // Update total
     const total = cart.reduce((sum, item) => sum + item.price, 0);
     cartTotal.textContent = `π${total.toFixed(2)}`;
 }
 
-// Search functionality
-const searchInput = document.querySelector('input[type="text"]');
-searchInput.addEventListener('input', debounce(handleSearch, 300));
+// Pi Network functions
+async function onIncompletePaymentFound(payment) {
+    showError('Incomplete payment found. Please complete your previous payment first.');
+}
 
+function updateWalletUI() {
+    const walletButton = document.querySelector('.wallet-button');
+    if (!walletButton) return;
+
+    if (currentUser) {
+        walletButton.textContent = `Connected: ${currentUser.username}`;
+        walletButton.classList.add('connected');
+    } else {
+        walletButton.textContent = 'Connect Wallet';
+        walletButton.classList.remove('connected');
+    }
+}
+
+// UI helper functions
+function showLoading(show) {
+    const spinner = document.querySelector('.loading-spinner');
+    if (!spinner) return;
+    
+    spinner.classList.toggle('hidden', !show);
+}
+
+function showError(message) {
+    const toast = document.createElement('div');
+    toast.className = 'fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+function showSuccess(message) {
+    const toast = document.createElement('div');
+    toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+// Event listeners
+function setupEventListeners() {
+    // Cart toggle
+    const cartButton = document.getElementById('cart-btn');
+    const cartSidebar = document.getElementById('cart-sidebar');
+    
+    if (cartButton && cartSidebar) {
+        cartButton.addEventListener('click', () => {
+            cartSidebar.classList.toggle('translate-x-full');
+        });
+    }
+
+    // Close cart when clicking outside
+    document.addEventListener('click', (e) => {
+        if (cartSidebar && !cartSidebar.contains(e.target) && !cartButton.contains(e.target)) {
+            cartSidebar.classList.add('translate-x-full');
+        }
+    });
+
+    // Search functionality
+    const searchInput = document.querySelector('input[type="text"]');
+    if (searchInput) {
+        searchInput.addEventListener('input', debounce(handleSearch, 300));
+    }
+}
+
+// Search functionality
 function handleSearch(event) {
     const query = event.target.value.toLowerCase();
-    const filteredItems = menuItems.filter(item => 
+    const restaurant = mockRestaurants['1']; // Using mock data
+    
+    const filteredItems = restaurant.menu.filter(item => 
         item.name.toLowerCase().includes(query) || 
         item.description.toLowerCase().includes(query)
     );
     
-    const categories = groupByCategory(filteredItems);
-    renderMenuCategories(categories);
+    renderMenuItems(filteredItems);
 }
 
 // Utility functions
@@ -330,10 +275,3 @@ function debounce(func, wait) {
         timeout = setTimeout(later, wait);
     };
 }
-
-// Initialize page with Pi Network
-document.addEventListener('DOMContentLoaded', () => {
-    initPiNetwork();
-    loadRestaurantData();
-    updateCartUI();
-});
