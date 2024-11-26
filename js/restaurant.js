@@ -4,47 +4,190 @@ let menuItems = [];
 
 // Initialize Pi SDK
 const Pi = window.Pi;
-Pi.init({ version: "2.0", sandbox: true });
+const piConfig = {
+    version: "2.0",
+    sandbox: true,
+    apiKey: "YOUR_PI_API_KEY", // Replace with your actual Pi API key
+};
 
-// Cart functionality
-const cartIcon = document.getElementById('cart-icon');
-const cartDropdown = document.getElementById('cart-dropdown');
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let currentUser = null;
+let authenticatedPiUser = null;
 
-// Toggle cart dropdown
-cartIcon.addEventListener('click', () => {
-    cartDropdown.classList.toggle('hidden');
-});
-
-// Close cart when clicking outside
-document.addEventListener('click', (e) => {
-    if (!cartIcon.contains(e.target)) {
-        cartDropdown.classList.add('hidden');
+// Initialize Pi SDK and authenticate user
+async function initPiNetwork() {
+    try {
+        Pi.init(piConfig);
+        currentUser = await Pi.authenticate(['payments'], onIncompletePaymentFound);
+        authenticatedPiUser = currentUser;
+        updateWalletUI();
+    } catch (error) {
+        console.error('Error initializing Pi Network:', error);
     }
-});
+}
 
-// Load restaurant data
+// Handle incomplete payments
+async function onIncompletePaymentFound(payment) {
+    try {
+        await handleIncompletePayment(payment);
+    } catch (err) {
+        console.error('Error handling incomplete payment:', err);
+    }
+}
+
+// Update wallet UI
+function updateWalletUI() {
+    const walletButton = document.querySelector('.wallet-button');
+    if (authenticatedPiUser) {
+        walletButton.textContent = `Connected: ${authenticatedPiUser.username}`;
+        walletButton.classList.add('connected');
+    } else {
+        walletButton.textContent = 'Connect Wallet';
+        walletButton.classList.remove('connected');
+    }
+}
+
+// Load restaurant data with error handling and loading states
 async function loadRestaurantData() {
     const urlParams = new URLSearchParams(window.location.search);
     const restaurantId = urlParams.get('id');
+    
+    if (!restaurantId) {
+        showError('Restaurant ID is required');
+        return;
+    }
 
+    showLoading(true);
     try {
         const response = await fetch(`/api/restaurants/${restaurantId}`);
-        restaurant = await response.json();
+        if (!response.ok) {
+            throw new Error('Failed to load restaurant data');
+        }
         
-        // Update UI with restaurant data
-        document.getElementById('restaurant-name').textContent = restaurant.name;
-        document.getElementById('restaurant-cover').src = restaurant.coverImage;
-        document.getElementById('restaurant-rating').textContent = '★'.repeat(Math.floor(restaurant.rating));
-        document.getElementById('review-count').textContent = `(${restaurant.reviewCount} reviews)`;
-        document.getElementById('cuisine-type').textContent = restaurant.cuisineType;
-        document.getElementById('delivery-time').textContent = `${restaurant.deliveryTime} min`;
-
-        // Load menu items
+        restaurant = await response.json();
+        updateRestaurantUI(restaurant);
         await loadMenuItems(restaurantId);
     } catch (error) {
         console.error('Error loading restaurant:', error);
+        showError('Failed to load restaurant data. Please try again.');
+    } finally {
+        showLoading(false);
     }
+}
+
+// Update restaurant UI
+function updateRestaurantUI(restaurant) {
+    document.getElementById('restaurant-name').textContent = restaurant.name;
+    document.getElementById('restaurant-cover').src = restaurant.coverImage;
+    document.getElementById('restaurant-rating').textContent = '★'.repeat(Math.floor(restaurant.rating));
+    document.getElementById('review-count').textContent = `(${restaurant.reviewCount} reviews)`;
+    document.getElementById('cuisine-type').textContent = restaurant.cuisineType;
+    document.getElementById('delivery-time').textContent = `${restaurant.deliveryTime} min`;
+    
+    // Update restaurant metadata
+    updateRestaurantMetadata(restaurant);
+}
+
+// Enhanced cart functionality with Pi Network integration
+async function addToCart(item) {
+    if (!authenticatedPiUser) {
+        showError('Please connect your Pi Wallet to add items to cart');
+        return;
+    }
+
+    cart.push({
+        ...item,
+        timestamp: new Date().toISOString(),
+        userId: authenticatedPiUser.uid
+    });
+    
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartUI();
+    showSuccess('Item added to cart');
+}
+
+// Process payment with Pi Network
+async function processPayment(total) {
+    if (!authenticatedPiUser) {
+        showError('Please connect your Pi Wallet to proceed');
+        return;
+    }
+
+    try {
+        const payment = await Pi.createPayment({
+            amount: total,
+            memo: `Food order from ${restaurant.name}`,
+            metadata: { orderId: generateOrderId() }
+        });
+
+        if (payment.status === 'completed') {
+            await submitOrder(payment);
+            clearCart();
+            showSuccess('Order placed successfully!');
+        } else {
+            showError('Payment failed. Please try again.');
+        }
+    } catch (error) {
+        console.error('Payment error:', error);
+        showError('Payment processing failed. Please try again.');
+    }
+}
+
+// Submit order to backend
+async function submitOrder(payment) {
+    try {
+        const response = await fetch(`/api/orders`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                items: cart,
+                payment: payment,
+                userId: authenticatedPiUser.uid,
+                restaurantId: restaurant.id
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to submit order');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Order submission error:', error);
+        throw error;
+    }
+}
+
+// UI helper functions
+function showLoading(show) {
+    const spinner = document.querySelector('.loading-spinner');
+    if (show) {
+        spinner.classList.remove('hidden');
+    } else {
+        spinner.classList.add('hidden');
+    }
+}
+
+function showError(message) {
+    const toast = document.createElement('div');
+    toast.className = 'fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+function showSuccess(message) {
+    const toast = document.createElement('div');
+    toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+// Utility functions
+function generateOrderId() {
+    return 'order_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 }
 
 // Load menu items
@@ -106,12 +249,22 @@ function renderMenuCategories(categories) {
     });
 }
 
-// Add item to cart
-function addToCart(item) {
-    cart.push(item);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartUI();
-}
+// Cart functionality
+const cartIcon = document.getElementById('cart-icon');
+const cartDropdown = document.getElementById('cart-dropdown');
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Toggle cart dropdown
+cartIcon.addEventListener('click', () => {
+    cartDropdown.classList.toggle('hidden');
+});
+
+// Close cart when clicking outside
+document.addEventListener('click', (e) => {
+    if (!cartIcon.contains(e.target)) {
+        cartDropdown.classList.add('hidden');
+    }
+});
 
 // Remove item from cart
 function removeFromCart(index) {
@@ -178,8 +331,9 @@ function debounce(func, wait) {
     };
 }
 
-// Initialize page
+// Initialize page with Pi Network
 document.addEventListener('DOMContentLoaded', () => {
+    initPiNetwork();
     loadRestaurantData();
     updateCartUI();
 });
