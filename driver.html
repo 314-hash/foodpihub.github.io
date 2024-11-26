@@ -3,220 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Driver Dashboard - food pi hub</title>
+    <title>Driver Dashboard - Food Pi Hub</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="./public/css/styles.css">
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-gray-50">
     <!-- Navigation -->
     <nav class="bg-white shadow-lg fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <a href="index.html" class="flex items-center">
-                            <i class="fas fa-utensils text-purple-600 text-2xl mr-2"></i>
-                            <span class="text-xl font-bold">DishDash</span>
-                        </a>
-                    </div>
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <i class="fas fa-utensils text-purple-600 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">Food Pi Hub</span>
+                    </a>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <button id="status-toggle" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
-                        <i class="fas fa-circle text-xs mr-2"></i>Online
-                    </button>
-                    <div class="relative">
-                        <button id="notifications-btn" class="text-gray-600 hover:text-purple-600">
-                            <i class="fas fa-bell text-xl"></i>
-                            <span class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">3</span>
-                        </button>
-                    </div>
-                    <button id="wallet-connect" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                    <a href="profile.html" class="text-gray-600 hover:text-purple-600">
+                        <i class="fas fa-user mr-2"></i>Profile
+                    </a>
+                    <a href="https://wallet.pinet.com" target="_blank" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
                         <i class="fas fa-wallet mr-2"></i>Connect Wallet
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="pt-16">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-            <!-- Left Column: Active Orders -->
-            <div class="md:col-span-1 space-y-4">
-                <div class="bg-white rounded-lg shadow p-4">
-                    <h2 class="text-lg font-bold mb-4">Active Orders</h2>
-                    <div class="space-y-4">
-                        <!-- Active Order Card -->
-                        <div class="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="font-bold">Order #1234</h3>
-                                <span class="text-green-500 text-sm">π15.99</span>
-                            </div>
-                            <p class="text-sm text-gray-600 mb-2">Pizza Paradise</p>
-                            <div class="flex items-center text-sm text-gray-500 mb-2">
-                                <i class="fas fa-map-marker-alt mr-2"></i>
-                                <span>2.5 km away</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-purple-600">Est. 15 mins</span>
-                                <button class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">
-                                    Accept
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- More Order Cards -->
-                        <div class="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="font-bold">Order #1235</h3>
-                                <span class="text-green-500 text-sm">π24.99</span>
-                            </div>
-                            <p class="text-sm text-gray-600 mb-2">Burger House</p>
-                            <div class="flex items-center text-sm text-gray-500 mb-2">
-                                <i class="fas fa-map-marker-alt mr-2"></i>
-                                <span>1.8 km away</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-purple-600">Est. 12 mins</span>
-                                <button class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">
-                                    Accept
-                                </button>
-                            </div>
-                        </div>
+    <!-- Driver Dashboard -->
+    <div class="min-h-screen pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Status Section -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8 mt-8">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-bold">Driver Status</h2>
+                    <div class="flex items-center">
+                        <span class="mr-4 text-green-500">Online</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
                     </div>
                 </div>
             </div>
 
-            <!-- Middle Column: Map -->
-            <div class="md:col-span-2">
-                <div class="bg-white rounded-lg shadow p-4 h-[calc(100vh-6rem)]">
-                    <div id="map" class="w-full h-full rounded-lg"></div>
+            <!-- Current Delivery -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold mb-6">Current Delivery</h2>
+                <div class="border-l-4 border-purple-600 pl-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-semibold text-lg">Order #12345</h3>
+                            <p class="text-gray-600">2x Margherita Pizza, 1x Garlic Bread</p>
+                            <p class="text-gray-600">123 Main St, Apt 4B</p>
+                            <p class="text-gray-600">Customer: John Doe</p>
+                            <p class="text-gray-600">Phone: (555) 123-4567</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-semibold">π 22.98</p>
+                            <p class="text-green-500">Pickup Ready</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex space-x-4">
+                        <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                            Navigate to Restaurant
+                        </button>
+                        <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">
+                            Contact Customer
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Current Delivery Panel -->
-        <div id="delivery-panel" class="fixed bottom-0 left-0 right-0 bg-white shadow-lg transform translate-y-full transition-transform duration-300">
-            <div class="max-w-7xl mx-auto p-4">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-bold">Current Delivery</h3>
-                    <button class="text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Order Details -->
-                    <div>
-                        <h4 class="font-bold mb-2">Order #1234</h4>
-                        <p class="text-sm text-gray-600">2x Margherita Pizza</p>
-                        <p class="text-sm text-gray-600">1x Garlic Bread</p>
-                        <p class="font-bold text-green-500 mt-2">π15.99</p>
-                    </div>
-                    <!-- Customer Details -->
-                    <div>
-                        <h4 class="font-bold mb-2">Customer</h4>
-                        <p class="text-sm">John Doe</p>
-                        <p class="text-sm text-gray-600">+1 234-567-8900</p>
-                        <p class="text-sm text-gray-600">123 Main St, Apt 4B</p>
-                    </div>
-                    <!-- Actions -->
-                    <div class="flex items-center justify-end space-x-4">
-                        <button class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200">
-                            <i class="fas fa-phone mr-2"></i>Call
-                        </button>
-                        <button class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200">
-                            <i class="fas fa-message mr-2"></i>Message
-                        </button>
-                        <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
-                            Complete Delivery
+            <!-- Available Orders -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-2xl font-bold mb-6">Available Orders</h2>
+                <div class="space-y-6">
+                    <div class="border-l-4 border-gray-200 pl-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-semibold text-lg">Order #12346</h3>
+                                <p class="text-gray-600">1x Pepperoni Pizza, 2x Coke</p>
+                                <p class="text-gray-600">456 Oak St</p>
+                                <p class="text-gray-600">Distance: 2.3 miles</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold">π 18.99</p>
+                                <p class="text-purple-600">Est. 25 mins</p>
+                            </div>
+                        </div>
+                        <button class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                            Accept Order
                         </button>
                     </div>
-                </div>
-                <!-- Progress Steps -->
-                <div class="mt-6">
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-col items-center">
-                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white">
-                                <i class="fas fa-check"></i>
+
+                    <div class="border-l-4 border-gray-200 pl-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-semibold text-lg">Order #12347</h3>
+                                <p class="text-gray-600">3x Sushi Rolls, 1x Miso Soup</p>
+                                <p class="text-gray-600">789 Pine St</p>
+                                <p class="text-gray-600">Distance: 1.8 miles</p>
                             </div>
-                            <span class="text-sm mt-1">Accepted</span>
-                        </div>
-                        <div class="flex-1 h-1 bg-gray-200 mx-2">
-                            <div class="h-full bg-green-500" style="width: 75%"></div>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white">
-                                <i class="fas fa-check"></i>
+                            <div class="text-right">
+                                <p class="font-semibold">π 25.99</p>
+                                <p class="text-purple-600">Est. 20 mins</p>
                             </div>
-                            <span class="text-sm mt-1">Picked Up</span>
                         </div>
-                        <div class="flex-1 h-1 bg-gray-200 mx-2">
-                            <div class="h-full bg-green-500" style="width: 50%"></div>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white">
-                                <i class="fas fa-motorcycle"></i>
-                            </div>
-                            <span class="text-sm mt-1">On the Way</span>
-                        </div>
-                        <div class="flex-1 h-1 bg-gray-200 mx-2"></div>
-                        <div class="flex flex-col items-center">
-                            <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
-                                <i class="fas fa-flag-checkered"></i>
-                            </div>
-                            <span class="text-sm mt-1">Delivered</span>
-                        </div>
+                        <button class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                            Accept Order
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-
-    <!-- Notifications Panel -->
-    <div id="notifications-panel" class="fixed top-16 right-4 w-80 bg-white rounded-lg shadow-lg transform scale-0 opacity-0 transition-all duration-300 origin-top-right z-50">
-        <div class="p-4">
-            <h3 class="font-bold mb-4">Notifications</h3>
-            <div class="space-y-4">
-                <div class="flex items-start space-x-4">
-                    <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm">You received a 5-star rating!</p>
-                        <p class="text-xs text-gray-500">2 minutes ago</p>
-                    </div>
-                </div>
-                <div class="flex items-start space-x-4">
-                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600">
-                        <i class="fas fa-coins"></i>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm">Earned π5.00 in tips today!</p>
-                        <p class="text-xs text-gray-500">15 minutes ago</p>
-                    </div>
-                </div>
-                <div class="flex items-start space-x-4">
-                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
-                        <i class="fas fa-award"></i>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm">Completed 100 deliveries!</p>
-                        <p class="text-xs text-gray-500">1 hour ago</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Loading Spinner -->
-    <div class="loading-spinner fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-600"></div>
     </div>
 
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
-    <script src="./public/js/driver.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
