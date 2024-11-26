@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Partner Login - Food Pi Hub</title>
+    <meta name="description" content="Login to your restaurant partner dashboard">
+    <meta name="theme-color" content="#7C3AED">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Food Pi Hub">
+    
+    <!-- PWA Icons -->
+    <link rel="apple-touch-icon" href="images/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/tailwind.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <img src="images/logo.png" alt="Food Pi Hub Logo" class="h-8 w-auto">
+                        <span class="text-xl font-bold ml-2">Food Pi Hub</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center ml-8 space-x-6">
+                    <a href="index.html" class="text-gray-600 hover:text-purple-600">Home</a>
+                    <a href="restaurant-login.html" class="text-purple-600">Restaurant Login</a>
+                    <a href="partner.html" class="text-gray-600 hover:text-purple-600">Become a Partner</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <div>
+                <img class="mx-auto h-12 w-auto" src="images/logo.png" alt="Food Pi Hub Logo">
+                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                    Restaurant Partner Login
+                </h2>
+                <p class="mt-2 text-center text-sm text-gray-600">
+                    Access your restaurant dashboard
+                </p>
+            </div>
+            <form class="mt-8 space-y-6" action="#" method="POST">
+                <input type="hidden" name="remember" value="true">
+                <div class="rounded-md shadow-sm -space-y-px">
+                    <div>
+                        <label for="email-address" class="sr-only">Email address</label>
+                        <input id="email-address" name="email" type="email" autocomplete="email" required
+                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                            placeholder="Email address">
+                    </div>
+                    <div>
+                        <label for="password" class="sr-only">Password</label>
+                        <input id="password" name="password" type="password" autocomplete="current-password" required
+                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                            placeholder="Password">
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox"
+                            class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded">
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-900">
+                            Remember me
+                        </label>
+                    </div>
+
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-purple-600 hover:text-purple-500">
+                            Forgot your password?
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit"
+                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                        <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                            <i class="fas fa-lock text-purple-500 group-hover:text-purple-400"></i>
+                        </span>
+                        Sign in
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-6">
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-gray-50 text-gray-500">
+                            New to Food Pi Hub?
+                        </span>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <a href="partner.html"
+                        class="w-full flex justify-center py-2 px-4 border border-purple-600 rounded-md shadow-sm text-sm font-medium text-purple-600 bg-white hover:bg-purple-50">
+                        Become a Partner
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-gray-600 hover:text-purple-600">About Us</a></li>
+                        <li><a href="contact.html" class="text-gray-600 hover:text-purple-600">Contact</a></li>
+                        <li><a href="faq.html" class="text-gray-600 hover:text-purple-600">FAQ</a></li>
+                        <li><a href="blog.html" class="text-gray-600 hover:text-purple-600">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="restaurant.html?category=pizza" class="text-gray-600 hover:text-purple-600">Pizza</a></li>
+                        <li><a href="restaurant.html?category=burger" class="text-gray-600 hover:text-purple-600">Burgers</a></li>
+                        <li><a href="restaurant.html?category=sushi" class="text-gray-600 hover:text-purple-600">Sushi</a></li>
+                        <li><a href="restaurant.html?category=vegetarian" class="text-gray-600 hover:text-purple-600">Vegetarian</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">For Restaurants</h3>
+                    <ul class="space-y-2">
+                        <li><a href="partner.html" class="text-gray-600 hover:text-purple-600">Become a Partner</a></li>
+                        <li><a href="restaurant-app.html" class="text-gray-600 hover:text-purple-600">Restaurant App</a></li>
+                        <li><a href="restaurant-login.html" class="text-gray-600 hover:text-purple-600">Restaurant Login</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="privacy-policy.html" class="text-gray-600 hover:text-purple-600">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="text-gray-600 hover:text-purple-600">Terms of Service</a></li>
+                        <li><a href="cookies.html" class="text-gray-600 hover:text-purple-600">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t text-center text-gray-600">
+                <p>&copy; 2024 Food Pi Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

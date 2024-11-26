@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popular Restaurants - Food Pi Hub</title>
+    <meta name="description" content="Discover the most popular restaurants in your area">
+    <meta name="theme-color" content="#7C3AED">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Food Pi Hub">
+    
+    <!-- PWA Icons -->
+    <link rel="apple-touch-icon" href="images/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/tailwind.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <img src="images/logo.png" alt="Food Pi Hub Logo" class="h-8 w-auto">
+                        <span class="text-xl font-bold ml-2">Food Pi Hub</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center ml-8 space-x-6">
+                    <a href="index.html" class="text-gray-600 hover:text-purple-600">Home</a>
+                    <a href="deals.html" class="text-gray-600 hover:text-purple-600">Today's Deals</a>
+                    <a href="popular.html" class="text-purple-600">Popular</a>
+                    <a href="orders.html" class="text-gray-600 hover:text-purple-600">My Orders</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Popular Header -->
+    <header class="pt-24 pb-12 bg-gradient-to-r from-purple-600 to-purple-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <h1 class="text-4xl font-bold text-white mb-4">Most Popular Restaurants</h1>
+            <p class="text-purple-100 text-lg">Discover the highest-rated restaurants in your area</p>
+        </div>
+    </header>
+
+    <!-- Popular Restaurants Grid -->
+    <section class="py-12 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Restaurant Card 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="images/restaurants/restaurant1.jpg" alt="Pizza Palace" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold">Pizza Palace</h3>
+                                <p class="text-gray-600">Italian • Pizza • Pasta</p>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <span class="ml-1 font-semibold">4.8</span>
+                                <span class="text-gray-600 ml-1">(2.1k)</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">Famous for authentic Neapolitan pizzas</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-purple-600">30-45 min</span>
+                            <a href="restaurant.html?id=pizza-palace" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">View Menu</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant Card 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="images/restaurants/restaurant2.jpg" alt="Burger Barn" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold">Burger Barn</h3>
+                                <p class="text-gray-600">American • Burgers • Fries</p>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <span class="ml-1 font-semibold">4.7</span>
+                                <span class="text-gray-600 ml-1">(1.8k)</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">Gourmet burgers made with local ingredients</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-purple-600">20-35 min</span>
+                            <a href="restaurant.html?id=burger-barn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">View Menu</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurant Card 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="images/restaurants/restaurant3.jpg" alt="Sushi Spot" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold">Sushi Spot</h3>
+                                <p class="text-gray-600">Japanese • Sushi • Asian</p>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <span class="ml-1 font-semibold">4.9</span>
+                                <span class="text-gray-600 ml-1">(1.5k)</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">Premium sushi and Japanese cuisine</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-purple-600">25-40 min</span>
+                            <a href="restaurant.html?id=sushi-spot" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">View Menu</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-12">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-gray-600 hover:text-purple-600">About Us</a></li>
+                        <li><a href="contact.html" class="text-gray-600 hover:text-purple-600">Contact</a></li>
+                        <li><a href="faq.html" class="text-gray-600 hover:text-purple-600">FAQ</a></li>
+                        <li><a href="blog.html" class="text-gray-600 hover:text-purple-600">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><a href="restaurant.html?category=pizza" class="text-gray-600 hover:text-purple-600">Pizza</a></li>
+                        <li><a href="restaurant.html?category=burger" class="text-gray-600 hover:text-purple-600">Burgers</a></li>
+                        <li><a href="restaurant.html?category=sushi" class="text-gray-600 hover:text-purple-600">Sushi</a></li>
+                        <li><a href="restaurant.html?category=vegetarian" class="text-gray-600 hover:text-purple-600">Vegetarian</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">For Restaurants</h3>
+                    <ul class="space-y-2">
+                        <li><a href="partner.html" class="text-gray-600 hover:text-purple-600">Become a Partner</a></li>
+                        <li><a href="restaurant-app.html" class="text-gray-600 hover:text-purple-600">Restaurant App</a></li>
+                        <li><a href="restaurant-login.html" class="text-gray-600 hover:text-purple-600">Restaurant Login</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="privacy-policy.html" class="text-gray-600 hover:text-purple-600">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="text-gray-600 hover:text-purple-600">Terms of Service</a></li>
+                        <li><a href="cookies.html" class="text-gray-600 hover:text-purple-600">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t text-center text-gray-600">
+                <p>&copy; 2024 Food Pi Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
