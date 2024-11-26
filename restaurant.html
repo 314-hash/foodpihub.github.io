@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Details - Food Pi Hub</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/foodpihub.github.io/public/css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/tailwind.css">
+    <script src="js/restaurant.js" defer></script>
+    <script src="config.js"></script>
 </head>
 <body class="bg-gray-50">
     <!-- Navigation -->
@@ -14,41 +15,20 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between h-16">
                 <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <a href="index.html" class="flex items-center">
-                            <i class="fas fa-utensils text-purple-600 text-2xl mr-2"></i>
-                            <span class="text-xl font-bold">Food Pi Hub</span>
-                        </a>
-                    </div>
-                    <div class="hidden md:flex items-center ml-8 space-x-6">
-                        <a href="index.html" class="text-gray-600 hover:text-purple-600">Home</a>
-                        <a href="restaurant.html?category=pizza" class="text-gray-600 hover:text-purple-600">Pizza</a>
-                        <a href="restaurant.html?category=burger" class="text-gray-600 hover:text-purple-600">Burger</a>
-                        <a href="restaurant.html?category=sushi" class="text-gray-600 hover:text-purple-600">Sushi</a>
-                        <a href="restaurant.html?category=dessert" class="text-gray-600 hover:text-purple-600">Dessert</a>
-                        <a href="#about" class="text-gray-600 hover:text-purple-600">About</a>
-                        <a href="#contact" class="text-gray-600 hover:text-purple-600">Contact</a>
-                    </div>
+                    <a href="index.html" class="flex items-center">
+                        <img src="images/logo.png" alt="Food Pi Hub Logo" class="h-8 w-auto">
+                        <span class="text-xl font-bold ml-2">Food Pi Hub</span>
+                    </a>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <button id="search-btn" class="text-gray-600 hover:text-purple-600">
-                        <i class="fas fa-search text-xl"></i>
-                    </button>
-                    <button id="favorites-btn" class="text-gray-600 hover:text-purple-600">
-                        <i class="fas fa-heart text-xl"></i>
-                    </button>
-                    <button id="cart-btn" class="text-gray-600 hover:text-purple-600 relative">
-                        <i class="fas fa-shopping-cart text-xl"></i>
-                        <span class="absolute -top-2 -right-2 bg-purple-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">0</span>
-                    </button>
-                    <a href="https://wallet.pinet.com" target="_blank" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center">
-                        <i class="fas fa-wallet mr-2"></i>Connect Wallet
+                    <a href="login.html" class="text-gray-700 hover:text-purple-600">Login</a>
+                    <a href="register.html" class="text-gray-700 hover:text-purple-600">Register</a>
+                    <a href="profile.html" class="text-gray-700 hover:text-purple-600">Profile</a>
+                    <a href="wallet.html" class="text-gray-700 hover:text-purple-600">Wallet</a>
+                    <a href="checkout.html" class="text-gray-700 hover:text-purple-600">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count" class="bg-purple-600 text-white rounded-full px-2 py-1 text-xs">0</span>
                     </a>
-                    <div class="md:hidden">
-                        <button id="mobile-menu-button" class="text-gray-600 hover:text-purple-600">
-                            <i class="fas fa-bars text-2xl"></i>
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -296,6 +276,20 @@
     <div class="loading-spinner fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-600"></div>
     </div>
+
+    <footer class="bg-white border-t mt-12">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <div class="text-center text-gray-600">
+                <p>&copy; 2024 Food Pi Hub. All rights reserved.</p>
+                <div class="mt-2 space-x-4">
+                    <a href="privacy-policy.html" class="text-purple-600 hover:text-purple-800">Privacy Policy</a>
+                    <a href="terms-of-service.html" class="text-purple-600 hover:text-purple-800">Terms of Service</a>
+                    <a href="admin.html" class="text-purple-600 hover:text-purple-800">Admin</a>
+                    <a href="driver.html" class="text-purple-600 hover:text-purple-800">Become a Driver</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // Mobile menu functionality
