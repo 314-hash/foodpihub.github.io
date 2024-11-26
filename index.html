@@ -14,9 +14,24 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <span class="text-3xl font-bold text-purple-600">
-                        <i class="fas fa-utensils mr-2"></i>Food Pi Hub
-                    </span>
+                    <a href="index.html" class="flex items-center">
+                        <i class="fas fa-utensils mr-2"></i>
+                        <span class="text-3xl font-bold text-purple-600">Food Pi Hub</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center ml-8 space-x-6">
+                    <a href="index.html" class="text-gray-600 hover:text-purple-600">Home</a>
+                    <a href="restaurant.html?category=pizza" class="text-gray-600 hover:text-purple-600">Pizza</a>
+                    <a href="restaurant.html?category=burger" class="text-gray-600 hover:text-purple-600">Burger</a>
+                    <a href="restaurant.html?category=sushi" class="text-gray-600 hover:text-purple-600">Sushi</a>
+                    <a href="restaurant.html?category=dessert" class="text-gray-600 hover:text-purple-600">Dessert</a>
+                    <a href="#about" class="text-gray-600 hover:text-purple-600">About</a>
+                    <a href="#contact" class="text-gray-600 hover:text-purple-600">Contact</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-600 hover:text-purple-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
                 </div>
                 <div class="flex items-center space-x-4">
                     <div class="relative">
@@ -25,13 +40,38 @@
                             <span id="cart-badge" class="absolute -top-1 -right-1 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                         </button>
                     </div>
-                    <button onclick="authenticate()" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center">
+                    <a href="https://wallet.pinet.com" target="_blank" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center">
                         <i class="fas fa-wallet mr-2"></i>Connect Wallet
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden">
+        <div class="bg-white h-full w-64 transform transition-transform duration-300 ease-in-out">
+            <div class="p-4 border-b">
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-purple-600">Menu</span>
+                    <button id="close-mobile-menu" class="text-gray-600 hover:text-gray-800">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <nav class="p-4">
+                <ul class="space-y-4">
+                    <li><a href="index.html" class="block text-gray-600 hover:text-purple-600">Home</a></li>
+                    <li><a href="restaurant.html?category=pizza" class="block text-gray-600 hover:text-purple-600">Pizza</a></li>
+                    <li><a href="restaurant.html?category=burger" class="block text-gray-600 hover:text-purple-600">Burger</a></li>
+                    <li><a href="restaurant.html?category=sushi" class="block text-gray-600 hover:text-purple-600">Sushi</a></li>
+                    <li><a href="restaurant.html?category=dessert" class="block text-gray-600 hover:text-purple-600">Dessert</a></li>
+                    <li><a href="#about" class="block text-gray-600 hover:text-purple-600">About</a></li>
+                    <li><a href="#contact" class="block text-gray-600 hover:text-purple-600">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero-section pt-24 pb-12 px-4">
@@ -58,38 +98,38 @@
         <div class="max-w-7xl mx-auto">
             <h2 class="text-3xl font-bold text-gray-800 mb-8">Popular Categories</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="category-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer">
+                <a href="restaurant.html?category=pizza" class="category-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow">
                     <div class="relative h-48">
-                        <img src="/foodpihub.github.io/images/categories/pizza.jpg" alt="Pizza" class="w-full h-full object-cover">
+                        <img src="images/categories/pizza.jpg" alt="Pizza" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
                             <span class="text-white text-xl font-bold">Pizza</span>
                         </div>
                     </div>
-                </div>
-                <div class="category-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer">
+                </a>
+                <a href="restaurant.html?category=burger" class="category-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow">
                     <div class="relative h-48">
-                        <img src="/foodpihub.github.io/images/categories/burger.jpg" alt="Burger" class="w-full h-full object-cover">
+                        <img src="images/categories/burger.jpg" alt="Burger" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
                             <span class="text-white text-xl font-bold">Burger</span>
                         </div>
                     </div>
-                </div>
-                <div class="category-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer">
+                </a>
+                <a href="restaurant.html?category=sushi" class="category-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow">
                     <div class="relative h-48">
-                        <img src="/foodpihub.github.io/images/categories/sushi.jpg" alt="Sushi" class="w-full h-full object-cover">
+                        <img src="images/categories/sushi.jpg" alt="Sushi" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
                             <span class="text-white text-xl font-bold">Sushi</span>
                         </div>
                     </div>
-                </div>
-                <div class="category-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer">
+                </a>
+                <a href="restaurant.html?category=dessert" class="category-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow">
                     <div class="relative h-48">
-                        <img src="/foodpihub.github.io/images/categories/dessert.jpg" alt="Dessert" class="w-full h-full object-cover">
+                        <img src="images/categories/dessert.jpg" alt="Dessert" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
                             <span class="text-white text-xl font-bold">Dessert</span>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </section>
@@ -239,5 +279,25 @@
 
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
     <script src="js/app.js"></script>
+    <script>
+        // Mobile menu functionality
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.remove('hidden');
+            document.querySelector('#mobile-menu > div').classList.remove('-translate-x-full');
+        });
+
+        document.getElementById('close-mobile-menu').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+            document.querySelector('#mobile-menu > div').classList.add('-translate-x-full');
+        });
+
+        // Close menu when clicking outside
+        document.getElementById('mobile-menu').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+                document.querySelector('#mobile-menu > div').classList.add('-translate-x-full');
+            }
+        });
+    </script>
 </body>
 </html>

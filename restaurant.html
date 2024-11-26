@@ -15,10 +15,19 @@
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
-                        <a href="/foodpihub.github.io/index.html" class="flex items-center">
+                        <a href="index.html" class="flex items-center">
                             <i class="fas fa-utensils text-purple-600 text-2xl mr-2"></i>
                             <span class="text-xl font-bold">Food Pi Hub</span>
                         </a>
+                    </div>
+                    <div class="hidden md:flex items-center ml-8 space-x-6">
+                        <a href="index.html" class="text-gray-600 hover:text-purple-600">Home</a>
+                        <a href="restaurant.html?category=pizza" class="text-gray-600 hover:text-purple-600">Pizza</a>
+                        <a href="restaurant.html?category=burger" class="text-gray-600 hover:text-purple-600">Burger</a>
+                        <a href="restaurant.html?category=sushi" class="text-gray-600 hover:text-purple-600">Sushi</a>
+                        <a href="restaurant.html?category=dessert" class="text-gray-600 hover:text-purple-600">Dessert</a>
+                        <a href="#about" class="text-gray-600 hover:text-purple-600">About</a>
+                        <a href="#contact" class="text-gray-600 hover:text-purple-600">Contact</a>
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
@@ -32,13 +41,43 @@
                         <i class="fas fa-shopping-cart text-xl"></i>
                         <span class="absolute -top-2 -right-2 bg-purple-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">0</span>
                     </button>
-                    <button id="wallet-connect" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                    <a href="https://wallet.pinet.com" target="_blank" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center">
                         <i class="fas fa-wallet mr-2"></i>Connect Wallet
-                    </button>
+                    </a>
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button" class="text-gray-600 hover:text-purple-600">
+                            <i class="fas fa-bars text-2xl"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden">
+        <div class="bg-white h-full w-64 transform transition-transform duration-300 ease-in-out -translate-x-full">
+            <div class="p-4 border-b">
+                <div class="flex justify-between items-center">
+                    <span class="text-xl font-bold text-purple-600">Menu</span>
+                    <button id="close-mobile-menu" class="text-gray-600 hover:text-gray-800">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <nav class="p-4">
+                <ul class="space-y-4">
+                    <li><a href="index.html" class="block text-gray-600 hover:text-purple-600">Home</a></li>
+                    <li><a href="restaurant.html?category=pizza" class="block text-gray-600 hover:text-purple-600">Pizza</a></li>
+                    <li><a href="restaurant.html?category=burger" class="block text-gray-600 hover:text-purple-600">Burger</a></li>
+                    <li><a href="restaurant.html?category=sushi" class="block text-gray-600 hover:text-purple-600">Sushi</a></li>
+                    <li><a href="restaurant.html?category=dessert" class="block text-gray-600 hover:text-purple-600">Dessert</a></li>
+                    <li><a href="#about" class="block text-gray-600 hover:text-purple-600">About</a></li>
+                    <li><a href="#contact" class="block text-gray-600 hover:text-purple-600">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 
     <!-- Search Modal -->
     <div id="search-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
@@ -257,6 +296,44 @@
     <div class="loading-spinner fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-600"></div>
     </div>
+
+    <script>
+        // Mobile menu functionality
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.remove('hidden');
+            document.querySelector('#mobile-menu > div').classList.remove('-translate-x-full');
+        });
+
+        document.getElementById('close-mobile-menu').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+            document.querySelector('#mobile-menu > div').classList.add('-translate-x-full');
+        });
+
+        // Close menu when clicking outside
+        document.getElementById('mobile-menu').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+                document.querySelector('#mobile-menu > div').classList.add('-translate-x-full');
+            }
+        });
+
+        // Get category from URL and update UI
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            if (category) {
+                document.querySelector('h1').textContent = category.charAt(0).toUpperCase() + category.slice(1) + ' Paradise';
+                // Update active menu item
+                const menuItems = document.querySelectorAll('nav a');
+                menuItems.forEach(item => {
+                    if (item.href.includes(category)) {
+                        item.classList.add('text-purple-600');
+                        item.classList.remove('text-gray-600');
+                    }
+                });
+            }
+        });
+    </script>
 
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
     <script src="/foodpihub.github.io/public/js/app.js"></script>
