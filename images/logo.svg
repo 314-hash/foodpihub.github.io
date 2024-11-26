@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background Circle -->
+    <circle cx="256" cy="256" r="256" fill="#7C3AED"/>
+    
+    <!-- Plate -->
+    <circle cx="256" cy="256" r="200" fill="white"/>
+    <circle cx="256" cy="256" r="180" stroke="#7C3AED" stroke-width="8" fill="none"/>
+    
+    <!-- Fork and Knife -->
+    <g transform="translate(256 256) rotate(45) translate(-256 -256)">
+        <!-- Fork -->
+        <rect x="196" y="106" width="20" height="300" rx="10" fill="#7C3AED"/>
+        <rect x="156" y="106" width="20" height="80" rx="10" fill="#7C3AED"/>
+        <rect x="236" y="106" width="20" height="80" rx="10" fill="#7C3AED"/>
+        
+        <!-- Knife -->
+        <path d="M296 106C296 106 336 106 356 126C376 146 376 186 376 186V406H336V186C336 186 336 166 316 146C296 126 296 126 296 126V106Z" fill="#7C3AED"/>
+    </g>
+    
+    <!-- Pi Symbol -->
+    <text x="256" y="300" text-anchor="middle" font-family="Arial" font-size="120" font-weight="bold" fill="#7C3AED">π</text>
+</svg>

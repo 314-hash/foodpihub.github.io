@@ -4,8 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Pi Hub - Food Delivery with Pi</title>
+    <meta name="description" content="Order food and pay with Pi cryptocurrency">
+    <meta name="theme-color" content="#7C3AED">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Food Pi Hub">
+    
+    <!-- PWA Icons -->
+    <link rel="apple-touch-icon" href="images/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/tailwind.css">
+    
+    <!-- Scripts -->
     <script src="js/app.js" defer></script>
     <script src="config.js"></script>
 </head>
@@ -261,6 +278,51 @@
                 this.classList.add('hidden');
                 document.querySelector('#mobile-menu > div').classList.add('-translate-x-full');
             }
+        });
+    </script>
+
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+
+        // Add to Home Screen Prompt
+        let deferredPrompt;
+        const addBtn = document.createElement('button');
+        addBtn.style.display = 'none';
+        addBtn.className = 'fixed bottom-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-purple-700 transition-colors';
+        addBtn.textContent = 'Install App';
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            addBtn.style.display = 'block';
+            document.body.appendChild(addBtn);
+        });
+
+        addBtn.addEventListener('click', async () => {
+            if (deferredPrompt !== null) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                }
+                deferredPrompt = null;
+                addBtn.style.display = 'none';
+            }
+        });
+
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('Food Pi Hub has been installed');
         });
     </script>
 </body>
