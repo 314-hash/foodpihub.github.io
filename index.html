@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Pi Hub - Food Delivery with Pi</title>
-    <meta name="description" content="Order food and pay with Pi cryptocurrency">
+    <title>Food Pi Hub - Your Favorite Food Delivered</title>
+    <meta name="description" content="Order food online from your favorite restaurants">
     <meta name="theme-color" content="#7C3AED">
     
     <!-- PWA Meta Tags -->
@@ -21,12 +21,31 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/tailwind.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Scripts -->
-    <script src="js/app.js" defer></script>
-    <script src="config.js"></script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 100%);
+        }
+        .custom-shape {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        .menu-card {
+            transition: transform 0.3s ease;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+        }
+        .feature-icon {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            color: #FF6B6B;
+        }
+    </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-white">
     <!-- Navigation -->
     <nav class="bg-white shadow-lg fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4">
@@ -34,368 +53,206 @@
                 <div class="flex items-center">
                     <a href="index.html" class="flex items-center">
                         <img src="images/logo.png" alt="Food Pi Hub Logo" class="h-8 w-auto">
-                        <span class="text-xl font-bold ml-2">Food Pi Hub</span>
+                        <span class="text-xl font-bold ml-2 text-gray-800">Food Pi Hub</span>
                     </a>
                 </div>
-                <div class="hidden md:flex items-center ml-8 space-x-6">
-                    <a href="index.html" class="text-gray-600 hover:text-purple-600">Home</a>
-                    <div class="relative group">
-                        <a href="restaurant.html" class="text-gray-600 hover:text-purple-600">Restaurants</a>
-                        <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-opacity duration-150 ease-in-out">
-                            <div class="py-1">
-                                <a href="restaurant.html?category=pizza" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Pizza</a>
-                                <a href="restaurant.html?category=burger" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Burger</a>
-                                <a href="restaurant.html?category=sushi" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Sushi</a>
-                                <a href="restaurant.html?category=dessert" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Dessert</a>
-                                <a href="restaurant.html?category=vegetarian" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Vegetarian</a>
-                                <a href="restaurant.html?category=healthy" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Healthy</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="relative group">
-                        <a href="#" class="text-gray-600 hover:text-purple-600">Quick Links</a>
-                        <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-opacity duration-150 ease-in-out">
-                            <div class="py-1">
-                                <a href="deals.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Today's Deals</a>
-                                <a href="popular.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Popular Items</a>
-                                <a href="near-me.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Near Me</a>
-                                <a href="trending.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50">Trending</a>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="orders.html" class="text-gray-600 hover:text-purple-600">My Orders</a>
-                    <a href="wallet.html" class="text-gray-600 hover:text-purple-600">Pi Wallet</a>
-                    <a href="#about" class="text-gray-600 hover:text-purple-600">About</a>
-                    <a href="#contact" class="text-gray-600 hover:text-purple-600">Contact</a>
-                </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-gray-600 hover:text-purple-600">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <div class="relative">
-                        <button id="cart-button" class="p-2 text-gray-600 hover:text-purple-600">
-                            <i class="fas fa-shopping-cart text-xl"></i>
-                            <span id="cart-badge" class="absolute -top-1 -right-1 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                        </button>
-                    </div>
-                    <a href="https://wallet.pinet.com" target="_blank" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center">
-                        <i class="fas fa-wallet mr-2"></i>Connect Wallet
-                    </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#menu" class="text-gray-600 hover:text-orange-500">Menu</a>
+                    <a href="#features" class="text-gray-600 hover:text-orange-500">Features</a>
+                    <a href="#about" class="text-gray-600 hover:text-orange-500">About</a>
+                    <a href="#contact" class="text-gray-600 hover:text-orange-500">Contact</a>
+                    <a href="#order" class="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600">Order Now</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 hidden">
-        <div class="bg-white h-full w-64 transform transition-transform duration-300 ease-in-out">
-            <div class="p-4 border-b">
-                <div class="flex justify-between items-center">
-                    <span class="text-xl font-bold text-purple-600">Menu</span>
-                    <button id="close-mobile-menu" class="text-gray-600 hover:text-gray-800">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
-                </div>
-            </div>
-            <nav class="p-4">
-                <ul class="space-y-4">
-                    <li><a href="index.html" class="block text-gray-600 hover:text-purple-600">Home</a></li>
-                    <li><a href="restaurant.html?category=pizza" class="block text-gray-600 hover:text-purple-600">Pizza</a></li>
-                    <li><a href="restaurant.html?category=burger" class="block text-gray-600 hover:text-purple-600">Burger</a></li>
-                    <li><a href="restaurant.html?category=sushi" class="block text-gray-600 hover:text-purple-600">Sushi</a></li>
-                    <li><a href="restaurant.html?category=dessert" class="block text-gray-600 hover:text-purple-600">Dessert</a></li>
-                    <li><a href="#about" class="block text-gray-600 hover:text-purple-600">About</a></li>
-                    <li><a href="#contact" class="block text-gray-600 hover:text-purple-600">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-
     <!-- Hero Section -->
-    <section class="hero-section pt-24 pb-12 px-4">
-        <div class="max-w-7xl mx-auto text-center">
-            <h1 class="text-5xl font-bold text-white mb-6 animate-fade-in">
-                Delicious Food Delivered
-            </h1>
-            <p class="text-2xl text-white mb-12 animate-fade-in" style="animation-delay: 0.2s">
-                Pay with Pi - Fast, Secure, and Convenient
-            </p>
-            <div class="max-w-2xl mx-auto relative animate-fade-in" style="animation-delay: 0.4s">
-                <div class="search-bar flex items-center">
-                    <i class="fas fa-search text-white ml-4"></i>
-                    <input type="text" placeholder="Search for restaurants or dishes..." 
-                           class="w-full p-4 pl-12 rounded-lg">
+    <div class="hero-gradient custom-shape min-h-screen pt-24 pb-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:flex lg:items-center lg:justify-between">
+                <div class="lg:w-1/2">
+                    <h1 class="text-5xl font-bold text-white mb-6">
+                        Delicious Food<br>
+                        <span class="text-6xl">Delivered to You</span>
+                    </h1>
+                    <p class="text-xl text-white mb-8">
+                        Experience the best local restaurants at your doorstep. Fresh, fast, and always delicious.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#order" class="bg-white text-orange-500 px-8 py-3 rounded-full font-semibold hover:bg-gray-100">
+                            Order Now
+                        </a>
+                        <a href="#menu" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-orange-500">
+                            View Menu
+                        </a>
+                    </div>
                 </div>
-                <div class="search-results hidden absolute w-full bg-white mt-2 rounded-lg shadow-lg z-10"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Categories Section -->
-    <section class="py-12 px-4">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8">Popular Categories</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <a href="restaurant.html?category=pizza" class="category-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow">
-                    <div class="relative h-48">
-                        <img src="images/categories/pizza.jpg" alt="Pizza" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                            <span class="text-white text-xl font-bold">Pizza</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="restaurant.html?category=burger" class="category-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow">
-                    <div class="relative h-48">
-                        <img src="images/categories/burger.jpg" alt="Burger" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                            <span class="text-white text-xl font-bold">Burger</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="restaurant.html?category=sushi" class="category-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow">
-                    <div class="relative h-48">
-                        <img src="images/categories/sushi.jpg" alt="Sushi" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                            <span class="text-white text-xl font-bold">Sushi</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="restaurant.html?category=dessert" class="category-card bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow">
-                    <div class="relative h-48">
-                        <img src="images/categories/dessert.jpg" alt="Dessert" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                            <span class="text-white text-xl font-bold">Dessert</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Restaurants -->
-    <section class="py-12 px-4 bg-gray-100">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8">Featured Restaurants</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="restaurant-card bg-white rounded-xl shadow-md overflow-hidden">
-                    <a href="restaurant.html?id=pizza-palace" class="block">
-                        <img src="images/restaurants/pizza-palace.jpg" alt="Pizza Palace" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold mb-2">Pizza Palace</h3>
-                            <p class="text-gray-600 mb-2">Authentic Italian pizzas made with love</p>
-                            <div class="flex items-center text-sm text-gray-500">
-                                <span class="mr-2">⭐ 4.8</span>
-                                <span class="mr-2">•</span>
-                                <span>20-30 min</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="restaurant-card bg-white rounded-xl shadow-md overflow-hidden">
-                    <a href="restaurant.html?id=burger-barn" class="block">
-                        <img src="images/restaurants/burger-barn.jpg" alt="Burger Barn" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold mb-2">Burger Barn</h3>
-                            <p class="text-gray-600 mb-2">Juicy burgers with premium ingredients</p>
-                            <div class="flex items-center text-sm text-gray-500">
-                                <span class="mr-2">⭐ 4.7</span>
-                                <span class="mr-2">•</span>
-                                <span>15-25 min</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="restaurant-card bg-white rounded-xl shadow-md overflow-hidden">
-                    <a href="restaurant.html?id=sushi-spot" class="block">
-                        <img src="images/restaurants/sushi-spot.jpg" alt="Sushi Spot" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold mb-2">Sushi Spot</h3>
-                            <p class="text-gray-600 mb-2">Fresh and delicious Japanese cuisine</p>
-                            <div class="flex items-center text-sm text-gray-500">
-                                <span class="mr-2">⭐ 4.9</span>
-                                <span class="mr-2">•</span>
-                                <span>25-35 min</span>
-                            </div>
-                        </div>
-                    </a>
+                <div class="lg:w-1/2 mt-10 lg:mt-0">
+                    <img src="images/hero-food.png" alt="Delicious Food" class="w-full rounded-3xl shadow-2xl">
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="py-16 px-4">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold text-gray-800 mb-12 text-center">Why Choose Food Pi Hub?</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="text-center">
-                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-coins text-2xl text-purple-600"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Pay with Pi</h3>
-                    <p class="text-gray-600">Secure and convenient payments using Pi cryptocurrency</p>
-                </div>
-                <div class="text-center">
-                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-bolt text-2xl text-purple-600"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Fast Delivery</h3>
-                    <p class="text-gray-600">Quick and reliable delivery to your doorstep</p>
-                </div>
-                <div class="text-center">
-                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-shield-alt text-2xl text-purple-600"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Secure Platform</h3>
-                    <p class="text-gray-600">Safe and secure ordering and payment process</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Cart Sidebar -->
-    <div id="cart-sidebar" class="fixed top-0 right-0 w-80 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50">
-        <div class="p-4 border-b">
-            <div class="flex justify-between items-center">
-                <h3 class="text-xl font-bold">Your Cart</h3>
-                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-        <div id="cart-items" class="p-4"></div>
-        <div class="border-t p-4">
-            <div class="flex justify-between items-center mb-4">
-                <span class="font-bold">Total:</span>
-                <span id="cart-total" class="text-xl font-bold text-purple-600">π0.00</span>
-            </div>
-            <button onclick="createPayment()" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700">
-                Checkout
-            </button>
         </div>
     </div>
 
-    <!-- Loading Spinner -->
-    <div class="loading-spinner fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-600"></div>
+    <!-- Popular Categories -->
+    <div class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Popular Categories</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="menu-card bg-white p-6 rounded-xl shadow-lg text-center">
+                    <img src="images/pizza.jpg" alt="Pizza" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Pizza</h3>
+                    <p class="text-gray-600">Starting from $9.99</p>
+                </div>
+                <div class="menu-card bg-white p-6 rounded-xl shadow-lg text-center">
+                    <img src="images/burger.jpg" alt="Burgers" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Burgers</h3>
+                    <p class="text-gray-600">Starting from $6.99</p>
+                </div>
+                <div class="menu-card bg-white p-6 rounded-xl shadow-lg text-center">
+                    <img src="images/sushi.jpg" alt="Sushi" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Sushi</h3>
+                    <p class="text-gray-600">Starting from $12.99</p>
+                </div>
+                <div class="menu-card bg-white p-6 rounded-xl shadow-lg text-center">
+                    <img src="images/dessert.jpg" alt="Desserts" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Desserts</h3>
+                    <p class="text-gray-600">Starting from $4.99</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Why Choose Us</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="feature-card text-center">
+                    <div class="feature-icon text-5xl text-orange-500 mb-6">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Fast Delivery</h3>
+                    <p class="text-gray-600">
+                        Lightning-fast delivery to your doorstep, guaranteed fresh and hot.
+                    </p>
+                </div>
+                <div class="feature-card text-center">
+                    <div class="feature-icon text-5xl text-orange-500 mb-6">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Quality Food</h3>
+                    <p class="text-gray-600">
+                        Carefully selected restaurants serving the best quality food.
+                    </p>
+                </div>
+                <div class="feature-card text-center">
+                    <div class="feature-icon text-5xl text-orange-500 mb-6">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">24/7 Support</h3>
+                    <p class="text-gray-600">
+                        Round-the-clock customer support for all your needs.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Download App Section -->
+    <div class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="lg:flex lg:items-center lg:justify-between">
+                <div class="lg:w-1/2">
+                    <h2 class="text-4xl font-bold mb-6">Get the Food Pi Hub App</h2>
+                    <p class="text-xl text-gray-600 mb-8">
+                        Download our mobile app for a better ordering experience. Available on iOS and Android.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="flex items-center bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800">
+                            <i class="fab fa-apple text-3xl mr-3"></i>
+                            <div>
+                                <div class="text-xs">Download on the</div>
+                                <div class="text-xl font-semibold">App Store</div>
+                            </div>
+                        </a>
+                        <a href="#" class="flex items-center bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800">
+                            <i class="fab fa-google-play text-3xl mr-3"></i>
+                            <div>
+                                <div class="text-xs">Get it on</div>
+                                <div class="text-xl font-semibold">Google Play</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 mt-10 lg:mt-0">
+                    <img src="images/app-preview.png" alt="Mobile App" class="w-full">
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-white border-t mt-12">
-        <div class="max-w-7xl mx-auto px-4 py-12">
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">About Us</h3>
+                    <p class="text-gray-400">
+                        Food Pi Hub is your trusted partner for food delivery, connecting you with the best local restaurants.
+                    </p>
+                </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="about.html" class="text-gray-600 hover:text-purple-600">About Us</a></li>
-                        <li><a href="contact.html" class="text-gray-600 hover:text-purple-600">Contact</a></li>
-                        <li><a href="faq.html" class="text-gray-600 hover:text-purple-600">FAQ</a></li>
-                        <li><a href="blog.html" class="text-gray-600 hover:text-purple-600">Blog</a></li>
+                        <li><a href="#menu" class="text-gray-400 hover:text-white">Menu</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-white">Features</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white">Contact</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
                     <ul class="space-y-2">
-                        <li><a href="restaurant.html?category=pizza" class="text-gray-600 hover:text-purple-600">Pizza</a></li>
-                        <li><a href="restaurant.html?category=burger" class="text-gray-600 hover:text-purple-600">Burgers</a></li>
-                        <li><a href="restaurant.html?category=sushi" class="text-gray-600 hover:text-purple-600">Sushi</a></li>
-                        <li><a href="restaurant.html?category=vegetarian" class="text-gray-600 hover:text-purple-600">Vegetarian</a></li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            123 Food Street, City
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-phone mr-2"></i>
+                            +1 234 567 890
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-envelope mr-2"></i>
+                            info@foodpihub.com
+                        </li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">For Restaurants</h3>
-                    <ul class="space-y-2">
-                        <li><a href="partner.html" class="text-gray-600 hover:text-purple-600">Become a Partner</a></li>
-                        <li><a href="restaurant-app.html" class="text-gray-600 hover:text-purple-600">Restaurant App</a></li>
-                        <li><a href="restaurant-login.html" class="text-gray-600 hover:text-purple-600">Restaurant Login</a></li>
-                        <li><a href="restaurant-support.html" class="text-gray-600 hover:text-purple-600">Restaurant Support</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
-                    <ul class="space-y-2">
-                        <li><a href="privacy-policy.html" class="text-gray-600 hover:text-purple-600">Privacy Policy</a></li>
-                        <li><a href="terms.html" class="text-gray-600 hover:text-purple-600">Terms of Service</a></li>
-                        <li><a href="cookies.html" class="text-gray-600 hover:text-purple-600">Cookie Policy</a></li>
-                        <li><a href="disclaimer.html" class="text-gray-600 hover:text-purple-600">Disclaimer</a></li>
-                    </ul>
+                    <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white text-2xl">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white text-2xl">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white text-2xl">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white text-2xl">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="mt-8 pt-8 border-t text-center text-gray-600">
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
                 <p>&copy; 2024 Food Pi Hub. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-    <script>
-        // Mobile menu functionality
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.remove('hidden');
-            document.querySelector('#mobile-menu > div').classList.remove('-translate-x-full');
-        });
-
-        document.getElementById('close-mobile-menu').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.add('hidden');
-            document.querySelector('#mobile-menu > div').classList.add('-translate-x-full');
-        });
-
-        // Close menu when clicking outside
-        document.getElementById('mobile-menu').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.add('hidden');
-                document.querySelector('#mobile-menu > div').classList.add('-translate-x-full');
-            }
-        });
-    </script>
-
-    <script>
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registration successful');
-                    })
-                    .catch(err => {
-                        console.log('ServiceWorker registration failed: ', err);
-                    });
-            });
-        }
-
-        // Add to Home Screen Prompt
-        let deferredPrompt;
-        const addBtn = document.createElement('button');
-        addBtn.style.display = 'none';
-        addBtn.className = 'fixed bottom-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-purple-700 transition-colors';
-        addBtn.textContent = 'Install App';
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            addBtn.style.display = 'block';
-            document.body.appendChild(addBtn);
-        });
-
-        addBtn.addEventListener('click', async () => {
-            if (deferredPrompt !== null) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                }
-                deferredPrompt = null;
-                addBtn.style.display = 'none';
-            }
-        });
-
-        window.addEventListener('appinstalled', (evt) => {
-            console.log('Food Pi Hub has been installed');
-        });
-    </script>
+    <script src="js/app.js"></script>
 </body>
 </html>
