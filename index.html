@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Pi Hub - Your Favorite Food Delivered</title>
     <meta name="description" content="Order food online from your favorite restaurants">
-    <meta name="theme-color" content="#7C3AED">
+    <meta name="theme-color" content="#FF5A60">
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/styles.css">
@@ -13,24 +13,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        .hero-gradient {
-            background: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 100%);
-        }
-        .custom-shape {
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        .bg-primary { background-color: #FF5A60; }
+        .text-primary { color: #FF5A60; }
+        .border-primary { border-color: #FF5A60; }
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('images/hero-bg.jpg') center/cover no-repeat;
+            height: 80vh;
         }
         .menu-card {
             transition: transform 0.3s ease;
         }
         .menu-card:hover {
             transform: translateY(-5px);
-        }
-        .feature-icon {
-            transition: all 0.3s ease;
-        }
-        .feature-card:hover .feature-icon {
-            transform: scale(1.1);
-            color: #FF6B6B;
         }
     </style>
 </head>
@@ -46,107 +41,97 @@
                     </a>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#menu" class="text-gray-600 hover:text-orange-500">Menu</a>
-                    <a href="#features" class="text-gray-600 hover:text-orange-500">Features</a>
-                    <a href="#about" class="text-gray-600 hover:text-orange-500">About</a>
-                    <a href="#contact" class="text-gray-600 hover:text-orange-500">Contact</a>
-                    <a href="#order" class="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600">Order Now</a>
-                    <button id="logoutBtn" onclick="handleLogout()" class="text-gray-600 hover:text-orange-500">
-                        <i class="fas fa-sign-out-alt mr-1"></i>Logout
-                    </button>
+                    <a href="#menu" class="text-gray-600 hover:text-primary">Menu</a>
+                    <a href="#restaurants" class="text-gray-600 hover:text-primary">Restaurants</a>
+                    <a href="#about" class="text-gray-600 hover:text-primary">About</a>
+                    <a href="#contact" class="text-gray-600 hover:text-primary">Contact</a>
+                    <a href="login.html" class="text-gray-600 hover:text-primary">Login</a>
+                    <a href="#order" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-red-600 transition duration-300">Order Now</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <div class="hero-gradient custom-shape min-h-screen pt-24 pb-32">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:flex lg:items-center lg:justify-between">
-                <div class="lg:w-1/2">
-                    <h1 class="text-5xl font-bold text-white mb-6">
-                        Delicious Food<br>
-                        <span class="text-6xl">Delivered to You</span>
-                    </h1>
-                    <p class="text-xl text-white mb-8">
-                        Experience the best local restaurants at your doorstep. Fresh, fast, and always delicious.
-                    </p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#order" class="bg-white text-orange-500 px-8 py-3 rounded-full font-semibold hover:bg-gray-100">
-                            Order Now
-                        </a>
-                        <a href="#menu" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-orange-500">
-                            View Menu
-                        </a>
-                    </div>
-                </div>
-                <div class="lg:w-1/2 mt-10 lg:mt-0">
-                    <img src="images/hero-food.png" alt="Delicious Food" class="w-full rounded-3xl shadow-2xl">
-                </div>
+    <div class="hero-section flex items-center justify-center text-center text-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <h1 class="text-6xl font-bold mb-6">Delicious Food Delivered to Your Door</h1>
+            <p class="text-xl mb-8">Order from your favorite local restaurants with just a few clicks</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#search" class="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-600 transition duration-300">
+                    Find Restaurants
+                </a>
+                <a href="#menu" class="bg-white text-gray-800 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
+                    View Menu
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- Popular Categories -->
+    <!-- Featured Categories -->
     <div class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-12">Popular Categories</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="menu-card bg-white p-6 rounded-xl shadow-lg text-center">
-                    <img src="images/pizza.jpg" alt="Pizza" class="w-full h-48 object-cover rounded-lg mb-4">
-                    <h3 class="text-xl font-semibold mb-2">Pizza</h3>
-                    <p class="text-gray-600">Starting from $9.99</p>
+            <h2 class="text-4xl font-bold text-center mb-4">Popular Categories</h2>
+            <p class="text-gray-600 text-center mb-12">Explore our most ordered dishes and cuisines</p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="menu-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="images/pizza.jpg" alt="Pizza" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Pizza</h3>
+                        <p class="text-gray-600">From classic to gourmet</p>
+                    </div>
                 </div>
-                <div class="menu-card bg-white p-6 rounded-xl shadow-lg text-center">
-                    <img src="images/burger.jpg" alt="Burgers" class="w-full h-48 object-cover rounded-lg mb-4">
-                    <h3 class="text-xl font-semibold mb-2">Burgers</h3>
-                    <p class="text-gray-600">Starting from $6.99</p>
+                <div class="menu-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="images/burger.jpg" alt="Burger" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Burgers</h3>
+                        <p class="text-gray-600">Juicy and delicious</p>
+                    </div>
                 </div>
-                <div class="menu-card bg-white p-6 rounded-xl shadow-lg text-center">
-                    <img src="images/sushi.jpg" alt="Sushi" class="w-full h-48 object-cover rounded-lg mb-4">
-                    <h3 class="text-xl font-semibold mb-2">Sushi</h3>
-                    <p class="text-gray-600">Starting from $12.99</p>
+                <div class="menu-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="images/sushi.jpg" alt="Sushi" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Sushi</h3>
+                        <p class="text-gray-600">Fresh and authentic</p>
+                    </div>
                 </div>
-                <div class="menu-card bg-white p-6 rounded-xl shadow-lg text-center">
-                    <img src="images/dessert.jpg" alt="Desserts" class="w-full h-48 object-cover rounded-lg mb-4">
-                    <h3 class="text-xl font-semibold mb-2">Desserts</h3>
-                    <p class="text-gray-600">Starting from $4.99</p>
+                <div class="menu-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="images/dessert.jpg" alt="Dessert" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Desserts</h3>
+                        <p class="text-gray-600">Sweet delights</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Features -->
+    <!-- How It Works -->
     <div class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-12">Why Choose Us</h2>
+            <h2 class="text-4xl font-bold text-center mb-4">How It Works</h2>
+            <p class="text-gray-600 text-center mb-12">Order your favorite food in 3 simple steps</p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div class="feature-card text-center">
-                    <div class="feature-icon text-5xl text-orange-500 mb-6">
-                        <i class="fas fa-truck"></i>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-map-marker-alt text-3xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Choose Location</h3>
+                    <p class="text-gray-600">Enter your address to find nearby restaurants</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-utensils text-3xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Choose Restaurant</h3>
+                    <p class="text-gray-600">Browse menus and select your favorite food</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-truck text-3xl text-primary"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-4">Fast Delivery</h3>
-                    <p class="text-gray-600">
-                        Lightning-fast delivery to your doorstep, guaranteed fresh and hot.
-                    </p>
-                </div>
-                <div class="feature-card text-center">
-                    <div class="feature-icon text-5xl text-orange-500 mb-6">
-                        <i class="fas fa-utensils"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-4">Quality Food</h3>
-                    <p class="text-gray-600">
-                        Carefully selected restaurants serving the best quality food.
-                    </p>
-                </div>
-                <div class="feature-card text-center">
-                    <div class="feature-icon text-5xl text-orange-500 mb-6">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-4">24/7 Support</h3>
-                    <p class="text-gray-600">
-                        Round-the-clock customer support for all your needs.
-                    </p>
+                    <p class="text-gray-600">Get your food delivered fast and fresh</p>
                 </div>
             </div>
         </div>
@@ -159,33 +144,33 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4">About Us</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-orange-500">Our Story</a></li>
-                        <li><a href="#" class="hover:text-orange-500">Blog</a></li>
-                        <li><a href="#" class="hover:text-orange-500">Careers</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Our Story</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Blog</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Careers</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Services</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-orange-500">Food Delivery</a></li>
-                        <li><a href="#" class="hover:text-orange-500">Restaurant Partners</a></li>
-                        <li><a href="#" class="hover:text-orange-500">Corporate Orders</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Food Delivery</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Restaurant Partners</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Corporate Orders</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Support</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-orange-500">Help Center</a></li>
-                        <li><a href="#" class="hover:text-orange-500">Contact Us</a></li>
-                        <li><a href="#" class="hover:text-orange-500">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Help Center</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-primary transition">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Connect With Us</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-2xl hover:text-orange-500"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-2xl hover:text-orange-500"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-2xl hover:text-orange-500"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-2xl hover:text-primary transition"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-2xl hover:text-primary transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-2xl hover:text-primary transition"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
