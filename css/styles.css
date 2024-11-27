@@ -1,5 +1,11 @@
 /* Custom styles on top of Tailwind */
 
+/* Variables */
+:root {
+    --primary-color: #FF5A60;
+    --primary-hover: #ff4146;
+}
+
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -9,11 +15,6 @@
 @keyframes slideUp {
     from { transform: translateY(20px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes slideInRight {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
 }
 
 /* General styles */
@@ -27,29 +28,105 @@
 
 /* Hero section */
 .hero-section {
-    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
-    min-height: 600px;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('../images/hero-bg.jpg') center/cover no-repeat;
+    min-height: 80vh;
     display: flex;
     align-items: center;
     position: relative;
-    overflow: hidden;
 }
 
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('../images/pattern.svg') center/cover;
-    opacity: 0.1;
+/* Category Cards */
+.category-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.hero-section h1 {
-    font-size: 3.5rem;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* How It Works */
+.step-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 90, 96, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: var(--primary-color);
+    font-size: 2rem;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-outline {
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Navigation */
+.nav-link {
+    color: #4B5563;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer-link {
+    color: #D1D5DB;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--primary-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 60vh;
+    }
+    
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+    
+    .step-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
 }
 
 /* Search bar */
@@ -78,24 +155,6 @@
 
 .search-bar input::placeholder {
     color: rgba(255, 255, 255, 0.8);
-}
-
-/* Category cards */
-.category-card {
-    transition: all 0.3s ease;
-    overflow: hidden;
-}
-
-.category-card:hover {
-    transform: translateY(-5px);
-}
-
-.category-card img {
-    transition: all 0.3s ease;
-}
-
-.category-card:hover img {
-    transform: scale(1.1);
 }
 
 /* Restaurant cards */
@@ -149,59 +208,6 @@
 .footer-link:hover {
     color: #8B5CF6;
     transform: translateX(5px);
-}
-
-/* Buttons */
-.btn-primary {
-    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
-}
-
-/* Navigation */
-.nav-link {
-    position: relative;
-    color: #4B5563;
-    transition: all 0.3s ease;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
-    transition: all 0.3s ease;
-}
-
-.nav-link:hover::after {
-    width: 100%;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .hero-section {
-        min-height: 400px;
-        padding: 2rem 1rem;
-    }
-
-    .hero-section h1 {
-        font-size: 2.5rem;
-    }
-
-    .search-bar {
-        width: 90%;
-        margin: 0 auto;
-    }
 }
 
 /* Custom scrollbar */
