@@ -7,17 +7,6 @@
     <meta name="description" content="Order food online from your favorite restaurants">
     <meta name="theme-color" content="#7C3AED">
     
-    <!-- PWA Meta Tags -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Food Pi Hub">
-    
-    <!-- PWA Icons -->
-    <link rel="apple-touch-icon" href="images/icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/icon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/icon-16x16.png">
-    
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/tailwind.css">
@@ -62,6 +51,9 @@
                     <a href="#about" class="text-gray-600 hover:text-orange-500">About</a>
                     <a href="#contact" class="text-gray-600 hover:text-orange-500">Contact</a>
                     <a href="#order" class="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600">Order Now</a>
+                    <button id="logoutBtn" onclick="handleLogout()" class="text-gray-600 hover:text-orange-500">
+                        <i class="fas fa-sign-out-alt mr-1"></i>Logout
+                    </button>
                 </div>
             </div>
         </div>
@@ -160,99 +152,55 @@
         </div>
     </div>
 
-    <!-- Download App Section -->
-    <div class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="lg:flex lg:items-center lg:justify-between">
-                <div class="lg:w-1/2">
-                    <h2 class="text-4xl font-bold mb-6">Get the Food Pi Hub App</h2>
-                    <p class="text-xl text-gray-600 mb-8">
-                        Download our mobile app for a better ordering experience. Available on iOS and Android.
-                    </p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#" class="flex items-center bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800">
-                            <i class="fab fa-apple text-3xl mr-3"></i>
-                            <div>
-                                <div class="text-xs">Download on the</div>
-                                <div class="text-xl font-semibold">App Store</div>
-                            </div>
-                        </a>
-                        <a href="#" class="flex items-center bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800">
-                            <i class="fab fa-google-play text-3xl mr-3"></i>
-                            <div>
-                                <div class="text-xs">Get it on</div>
-                                <div class="text-xl font-semibold">Google Play</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="lg:w-1/2 mt-10 lg:mt-0">
-                    <img src="images/app-preview.png" alt="Mobile App" class="w-full">
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
                     <h3 class="text-lg font-semibold mb-4">About Us</h3>
-                    <p class="text-gray-400">
-                        Food Pi Hub is your trusted partner for food delivery, connecting you with the best local restaurants.
-                    </p>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="#menu" class="text-gray-400 hover:text-white">Menu</a></li>
-                        <li><a href="#features" class="text-gray-400 hover:text-white">Features</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white">About</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" class="hover:text-orange-500">Our Story</a></li>
+                        <li><a href="#" class="hover:text-orange-500">Blog</a></li>
+                        <li><a href="#" class="hover:text-orange-500">Careers</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
                     <ul class="space-y-2">
-                        <li class="flex items-center text-gray-400">
-                            <i class="fas fa-map-marker-alt mr-2"></i>
-                            123 Food Street, City
-                        </li>
-                        <li class="flex items-center text-gray-400">
-                            <i class="fas fa-phone mr-2"></i>
-                            +1 234 567 890
-                        </li>
-                        <li class="flex items-center text-gray-400">
-                            <i class="fas fa-envelope mr-2"></i>
-                            info@foodpihub.com
-                        </li>
+                        <li><a href="#" class="hover:text-orange-500">Food Delivery</a></li>
+                        <li><a href="#" class="hover:text-orange-500">Restaurant Partners</a></li>
+                        <li><a href="#" class="hover:text-orange-500">Corporate Orders</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+                    <h3 class="text-lg font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-orange-500">Help Center</a></li>
+                        <li><a href="#" class="hover:text-orange-500">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-orange-500">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Connect With Us</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white text-2xl">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white text-2xl">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white text-2xl">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white text-2xl">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
+                        <a href="#" class="text-2xl hover:text-orange-500"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-2xl hover:text-orange-500"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-2xl hover:text-orange-500"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center">
                 <p>&copy; 2024 Food Pi Hub. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="js/app.js"></script>
+    <script>
+        function handleLogout() {
+            localStorage.removeItem('userToken');
+            localStorage.removeItem('userData');
+            window.location.href = 'login.html';
+        }
+    </script>
 </body>
 </html>
