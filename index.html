@@ -51,6 +51,9 @@
                     <a href="#about" class="text-gray-600 hover:text-orange-500">About</a>
                     <a href="#contact" class="text-gray-600 hover:text-orange-500">Contact</a>
                     <a href="#order" class="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600">Order Now</a>
+                    <button id="logoutBtn" onclick="handleLogout()" class="text-gray-600 hover:text-orange-500">
+                        <i class="fas fa-sign-out-alt mr-1"></i>Logout
+                    </button>
                 </div>
             </div>
         </div>
@@ -242,6 +245,16 @@
         </div>
     </footer>
 
+    <script>
+        function handleLogout() {
+            // Clear any stored user data or tokens
+            localStorage.removeItem('userToken');
+            localStorage.removeItem('userData');
+            
+            // Redirect to login page or home page
+            window.location.href = 'login.html';
+        }
+    </script>
     <script src="js/app.js"></script>
 </body>
 </html>
